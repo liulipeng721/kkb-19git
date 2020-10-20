@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let fn1 = function () {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(111)
+            }, 2000);
+        })
+    }
+
+    let fn2 = function () {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(222)
+            }, 1000);
+        })
+    }
+    let fn3 = function () {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(3333)
+            }, 3000);
+        })
+    }
+
+    // fn1().then(res=>{
+    //     console.log(res);
+    //     return fn2();
+    // }).then(res=>{
+    //     console.log(res);
+    //     return fn3();
+    // }).then(res=>{
+    //     console.log(res);
+    // })
+    async function asyncFn() {
+        try {
+            let res1 = await fn1();
+            console.log(res1);
+            let res2 = await fn2();
+            console.log(res2);
+            let res3 = await fn3();
+            console.log(res3);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    asyncFn();
+
+
+
+
+</script>
+
+</html>

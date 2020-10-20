@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+// 三种状态；pendding（等待） 、 fullfilled（成功） 、rejected（失败）
+// let p1 = new Promise((resolve,reject)=>{
+//     // resolve("result");
+//     reject("error");
+// })
+// console.log(p1);
+
+// promise对象 会有 then方法； then里 会有2个参数 onResolved、 onRejected；
+// let p1 = new Promise((res,rej)=>{
+//     // res(111);
+//     rej("err")
+// })
+// console.log(p1);
+// p1.then((res)=>{
+//     console.log("成功",res);
+// },(err)=>{
+//     console.log("失败",err);
+// })
+// .catch(err=>{
+//     console.log(err);
+// })
+
+// then里的三种返还值--》返还promise对象；
+
+// let p1 = new Promise(resolve=>{
+//     resolve(111);
+// })
+// 没有返还
+// let p2 =  p1.then((res)=>{
+//     console.log(res);
+// })
+// console.log(p2);
+
+// 返还普通值；
+// let p2 =  p1.then((res)=>{
+//     // console.log(res);
+//     return 222;
+// })
+// console.log(p2);
+
+// 返还promise对象
+
+// let p2 =  p1.then((res)=>{
+//     // console.log(res);
+//     return new Promise(resolve=>{
+//         resolve(333);
+//     });
+// })
+// console.log(p2);
+
+// let p1 = new Promise(resolve=>{
+//     resolve(111);
+// })
+
+// p1.then(res=>{
+
+// }).then(res=>{
+
+// }).then(res=>{
+
+// }).catch(err=>{
+
+// })
+
+
+// Promise里的静态方法；
+// let p1 = Promise.resolve("succuss");
+// let p1 = Promise.reject("err");
+// console.log(p1);
+
+
+let p1 = new Promise((resolve,reject)=>{
+    setTimeout(() => {
+        // resolve(111);
+        reject("err");
+    }, 2000);
+    
+})
+// p1.finally(()=>{
+//     console.log("完成了");
+// })
+let p2 = new Promise(resolve=>{
+    setTimeout(() => {
+        resolve(222);
+    }, 1000);
+})
+// Promise.all
+// Promise.all([p1,p2]).then(res=>{
+//     console.log(res);
+// });
+// Promise.race([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+// Promise.allSettled([p1,p2]).then(res=>{
+//     console.log(res);
+// })
+
+
+
+
+
+
+
+
+</script>
+</html>

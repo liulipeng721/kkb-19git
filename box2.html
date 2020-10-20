@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    let eventObj = new EventTarget();
+    let num = 1;
+
+    function move(ele, target, dir) {
+        let startLeft = parseInt(getComputedStyle(ele, null)[dir]);
+        // console.log(startLeft)
+        // let speed =(target-startLeft)/ Math.abs( target-startLeft ) ;
+        let speed = (target - startLeft) > 0 ? 1 : -1;
+        setTimeout(() => {
+            startLeft += speed;
+            if (startLeft === target) {
+                // console.log("运动完成");
+                // cb && cb();
+                eventObj.dispatchEvent(new CustomEvent("myevent"+num));
+                num++;
+            } else {
+                ele.style[dir] = startLeft + "px";
+                move(ele, target, dir);
+            }
+        }, 10);
+    }
+    // requestAnimationFrame
+    let ele = document.querySelector(".box");
+    // move(ele, 300,"left");
+    // move(ele, 300,"top");
+    // 回调解决异步；回调地狱
+    // move(ele, 300, "left", function () {
+    //     // console.log("运动完了")
+    //     move(ele, 300, "top", function () {
+    //         move(ele, 0, "left", function () {
+    //             move(ele, 0, "top", function () {
+    //                 console.log("运动完成");
+    //             })
+    //         })
+    //     })
+    // })
+
+    // move(ele, 300, "left");
+    // if(cb){
+    //     cb();
+    // }
+    move(ele, 300, "left");
+   
+    eventObj.addEventListener("myevent1",function(){
+        console.log("事件触发，运动完成myevent1");
+        move(ele, 300, "top");
+    });
+    eventObj.addEventListener("myevent2",function(){
+        console.log("事件触发，运动完成myevent2");
+        move(ele, 0, "left")
+    });
+    eventObj.addEventListener("myevent3",function(){
+        console.log("事件触发，运动完成myevent3");
+        move(ele, 0, "top")
+    });
+    eventObj.addEventListener("myevent4",function(){
+        console.log("事件触发，运动完成myevent4");
+    });
+
+</script>
+
+</html>

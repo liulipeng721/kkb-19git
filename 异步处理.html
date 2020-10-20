@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+//1. 同步 :  阻塞   2.异步 ：非阻塞
+
+console.log(1111);
+// console.log(222);
+function test(cb){
+    setTimeout(() => {
+        console.log("异步函数逻辑");
+        // console.log("其他的逻辑")
+        cb && cb();
+    }, 1000);
+}
+//回调 callback
+test(function(){
+    console.log("其他的逻辑")
+});
+console.log(333);
+
+//1.回调 （回调地狱） 2.自定义事件  3.promise 4.async 及 await；
+
+
+
+
+</script>
+</html>

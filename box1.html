@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+
+    function move(ele, target, dir, cb) {
+        let startLeft = parseInt(getComputedStyle(ele, null)[dir]);
+        // console.log(startLeft)
+        // let speed =(target-startLeft)/ Math.abs( target-startLeft ) ;
+        let speed = (target - startLeft) > 0 ? 1 : -1;
+        setTimeout(() => {
+            startLeft += speed;
+            if (startLeft === target) {
+                // console.log("运动完成");
+                cb && cb();
+            } else {
+                ele.style[dir] = startLeft + "px";
+                move(ele, target, dir, cb);
+            }
+        }, 10);
+    }
+    // requestAnimationFrame
+    let ele = document.querySelector(".box");
+    // move(ele, 300,"left");
+    // move(ele, 300,"top");
+    // 回调解决异步；回调地狱
+    move(ele, 300, "left", function () {
+        // console.log("运动完了")
+        move(ele, 300, "top", function () {
+            move(ele, 0, "left", function () {
+                move(ele, 0, "top", function () {
+                    console.log("运动完成");
+                })
+            })
+        })
+    })
+
+    // move(ele, 300, "left");
+    // if(cb){
+    //     cb();
+    // }
+
+
+</script>
+
+</html>

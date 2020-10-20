@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">
+
+
+    </div>
+    <div class="box2">
+
+
+    </div>
+    <button>点击</button>
+</body>
+<script>
+    // document.querySelector(".box1").onclick = function(){
+    //     console.log(123);
+    // }
+    // function $(arg){
+    //     return {
+    //         click(){
+    //             console.log("123");
+    //         }
+    //     }
+    // }
+
+    // $(".box1")
+    // $(".box1").click(()=>{
+    //     console.log(123);
+    // })
+
+    // 选择器；
+    // 情况一
+    //    let res =  $(".box1");
+    //    console.log(res);
+    // 情况二
+    // $(function(){
+    //     console.log(123);
+    // })
+    // 情况三
+    // $(document.querySelector(".box1")).click(()=>{
+    //     console.log(1234);
+    // })
+    
+    // 链式操作
+    // $(".box1").click(() => {
+    //     console.log(123);
+    // })
+
+    // on方法；
+    // $(".box1").click(() => {
+    //     console.log(123);
+    // })
+    // $(".box1").on("mouseover mousedown",function(){
+    //     console.log(123);
+    // })
+    // 链式操作
+//    let res =   $(".box1").click(()=>{
+//         console.log("click");
+//     })
+//     console.log(res);
+
+// $("div").eq(1).click(()=>{
+//     console.log(123);
+// })
+
+// let res =  $("div").get(1);
+// console.log(res);
+
+// let res =  $("div").eq(0).end().end();
+// console.log(res);
+
+// css 方法；
+
+// 情况一 :获取样式  （只去获取第一个元素）
+// let res =  $("div").css("background");
+// console.log(res);
+// 情况二 （设置样式）
+//  $("div").css("background","yellow");
+
+// 情况三 （设置多个样式）
+// $("div").css({background:"black",width:200});
+// $("div").css({background:"black",width:"200px",opacity:0.3});
+
+// 1.基于老师代码 2.不能用库及插件；
+// $("button").click(()=>{
+//     $(".box1").animate({width:"300px"});
+// })
+
+// wh
+$.cssHooks['wh'] = {
+    get(ele){
+        // console.log(ele);
+        // 100px-100px
+        return getComputedStyle(ele,null)['width'] + "-" + getComputedStyle(ele,null)['width'];
+    },
+    set(ele,value){
+        ele.style['width'] = value;
+        ele.style['height'] = value;
+    }
+}
+
+// let res =  $(".box1").css("wh");
+
+// console.log(res);
+// $(".box2").css("wh","200px");
+
+</script>
+
+</html>

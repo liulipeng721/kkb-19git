@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    function move(ele, target, dir) {
+        let startLeft = parseInt(getComputedStyle(ele, null)[dir]);
+        let speed = (target - startLeft) > 0 ? 1 : -1;
+        setTimeout(() => {
+            startLeft += speed;
+            if (startLeft === target) {
+                cb && cb();
+            } else {
+                ele.style[dir] = startLeft + "px";
+                move(ele, target, dir, cb);
+            }
+        }, 10);
+    }
+
+
+    function asyncMove(ele, target, dir) {
+        return new Promise(resolve => {
+            function move() {
+                let startLeft = parseInt(getComputedStyle(ele, null)[dir]);
+                let speed = (target - startLeft) > 0 ? 1 : -1;
+                setTimeout(() => {
+                    startLeft += speed;
+                    if (startLeft === target) {
+                        // cb && cb();
+                        resolve("运动到转折点...")
+                    } else {
+                        ele.style[dir] = startLeft + "px";
+                        move();
+                    }
+                }, 10);
+            }
+            move();
+
+        })
+    }
+    let ele = document.querySelector(".box");
+
+
+    async function moveAwait(ele, target, dir) {
+        let res0 = await asyncMove(ele, 300, "left")
+        console.log(res0)
+
+        let res1 = await asyncMove(ele, 300, "top")
+        console.log(res1)
+
+        let res2 = await asyncMove(ele, 0, "left")
+        console.log(res2)
+
+        let res3 = await asyncMove(ele, 0, "top")
+        console.log(res3)
+
+    }
+    // moveAwait(ele)
+
+
+    asyncMove(ele, 300, "left").then(res=>{
+        console.log(res);
+        return asyncMove(ele, 300, "top");
+    }).then(res => {
+        console.log(res);
+        return asyncMove(ele, 0, "left");
+    }).then(res => {
+        console.log(res);
+        return asyncMove(ele, 0, "top");
+    }).then(res => {
+        console.log("回到原点");
+    }).catch(res=>{
+        console.log("错误", res); 
+    })
+
+
+
+
+    // move(ele, 300, "left", function () {
+    //     move(ele, 300, "top", function () {
+    //         move(ele, 0, "left", function () {
+    //             move(ele, 0, "top", function () {
+    //                 console.log("运动完成");
+    //             })
+    //         })
+    //     })
+    // })
+
+</script>
+
+</html>
